@@ -1,7 +1,7 @@
 backend:
-  name: github
+  name: git-gateway
   repo: heaven-prophetic/home
-  branch: main
+  branch: main # or "master"
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
