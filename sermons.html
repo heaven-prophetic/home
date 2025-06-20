@@ -57,7 +57,7 @@
   </main>
 
    <script>
-    fetch('sermons.json')
+    fetch('data/sermons.json')
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById('sermonList');
