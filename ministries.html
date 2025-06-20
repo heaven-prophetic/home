@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Ministries – Heaven Prophetic Deliverance Ministry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #sideMenu {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    #sideMenu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-yellow-400 py-4 shadow flex justify-between items-center px-4">
+    <div>
+  <a href="index.html" class="text-xl font-bold text-red-700 block">Heaven Prophetic Deliverance Ministry</a>
+  <p class="text-sm text-red-800">22 Harris Street, May Pen, Clarendon, Jamaica</p>
+  <p class="text-sm text-red-800">📞 (876) 212-5944</p>
+</div>
+    <button id="menuBtn" class="md:hidden text-red-700 text-2xl">☰</button>
+
+    <!-- Desktop Menu -->
+    <nav class="hidden md:flex gap-4 text-red-800 font-semibold">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="ministries.html" class="hover:underline">Ministries</a>
+      <a href="sermons.html" class="hover:underline">Sermons</a>
+      <a href="events.html" class="hover:underline">Events</a>
+      <a href="prayer.html" class="hover:underline">Prayer</a>
+    </nav>
+  </header>
+
+  <!-- Slide-In Mobile Menu -->
+  <nav id="sideMenu" class="fixed top-0 left-0 w-3/4 h-full bg-yellow-200 shadow-lg p-6 z-50 md:hidden">
+    <button id="closeMenu" class="text-xl mb-4 text-red-700">✖ Close</button>
+    <ul class="space-y-4 text-lg font-semibold text-red-800">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="ministries.html">Ministries</a></li>
+      <li><a href="sermons.html">Sermons</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="prayer.html">Prayer</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <section class="max-w-5xl mx-auto py-16 px-6">
+    <h1 class="text-3xl font-extrabold text-red-700 mb-6">Our Ministries</h1>
+
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">🔥 Deliverance Ministry</h2>
+        <p>Breaking spiritual chains and restoring wholeness through the power of Jesus Christ.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">🎵 Worship & Music</h2>
+        <p>Leading the congregation into God’s presence through anointed praise and worship.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">👨‍👩‍👧 Youth Ministry</h2>
+        <p>Empowering the next generation to rise up in faith and leadership.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">🚶 Outreach & Evangelism</h2>
+        <p>Spreading the gospel and demonstrating God’s love beyond the church walls.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">👩 Women of Grace</h2>
+        <p>Building strong, prayerful women who walk in dignity and power.</p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-yellow-600">🧔 Men of Valor</h2>
+        <p>Raising godly men of faith, strength, and wisdom.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script for Menu Toggle -->
+  <script>
+    const sideMenu = document.getElementById("sideMenu");
+    const menuBtn = document.getElementById("menuBtn");
+    const closeMenu = document.getElementById("closeMenu");
+
+    menuBtn.addEventListener("click", () => {
+      sideMenu.classList.add("open");
+    });
+
+    closeMenu.addEventListener("click", () => {
+      sideMenu.classList.remove("open");
+    });
+  </script>
+
+</body>
+</html>
