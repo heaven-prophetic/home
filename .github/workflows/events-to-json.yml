@@ -3,7 +3,7 @@ name: Convert Events to JSON
 on:
   push:
     paths:
-      - 'events/**'
+      - 'data/events/**'
       - '.github/workflows/events-to-json.yml'
 
 jobs:
@@ -22,25 +22,31 @@ jobs:
       - name: Install gray-matter
         run: npm install gray-matter
 
-      - name: Convert /events to /data/events.json
+      - name: Convert data/events to data/events.json
         run: |
           node <<EOF
           const fs = require('fs');
           const matter = require('gray-matter');
 
-          const eventsDir = './events';
-          const files = fs.readdirSync(eventsDir);
-          const events = files.map(filename => {
-            const file = fs.readFileSync(\`\${eventsDir}/\${filename}\`, 'utf8');
-            const { data, content } = matter(file);
-            return {
-              ...data,
-              content: content.trim()
-            };
-          });
+          const eventsDir = './data/events';
+          if (!fs.existsSync(eventsDir)) {
+            console.error("❌ Folder './data/events' not found.");
+            process.exit(1);
+          }
 
-          if (!fs.existsSync('data')) fs.mkdirSync('data');
-          fs.writeFileSync('data/events.json', JSON.stringify(events, null, 2));
+          const files = fs.readdirSync(eventsDir);
+          const events = files
+            .filter(f => f.endsWith('.md'))
+            .map(filename => {
+              const file = fs.readFileSync(\`\${eventsDir}/\${filename}\`, 'utf8');
+              const { data, content } = matter(file);
+              return {
+                ...data,
+                content: content.trim()
+              };
+            });
+
+          fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
           EOF
 
       - name: Commit and push events.json
@@ -48,5 +54,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/events.json
-          git commit -m "Update events.json from Markdown" || echo "No changes to commit"
+          git commit -m "Update events.json from data/events/*.md" || echo "No changes to commit"
           git push
