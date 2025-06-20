@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: heaven-prophetic/home
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "sermons"
+    label: "Sermons"
+    label_singular: "Sermon"
+    folder: "data/sermons"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "video_url", label: "Facebook Video URL", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+
+  - name: "events"
+    label: "Events"
+    label_singular: "Event"
+    folder: "data/events"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "event_date", label: "Event Date", widget: "datetime" }
+      - { name: "location", label: "Location", widget: "string" }
+      - { name: "details", label: "Details", widget: "text" }
