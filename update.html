@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CMS – Update Content</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 bg-gray-100 text-gray-800 font-sans">
+  <h1 class="text-2xl font-bold text-red-700 mb-4">📺 Add New Sermon</h1>
+  <input id="videoTitle" placeholder="Title" class="border p-2 w-full mb-2"/>
+  <input id="videoURL" placeholder="Facebook Video URL or Embed Link" class="border p-2 w-full mb-2"/>
+  <button onclick="addSermon()" class="bg-yellow-400 px-4 py-2 text-red-700 font-bold">➕ Add Sermon</button>
+
+  <hr class="my-6"/>
+
+  <h1 class="text-2xl font-bold text-red-700 mb-4">📅 Add New Event</h1>
+  <input id="eventTitle" placeholder="Event Title" class="border p-2 w-full mb-2"/>
+  <input id="eventDate" type="date" class="border p-2 w-full mb-2"/>
+  <input id="eventTime" placeholder="Time (e.g. 6:30 PM)" class="border p-2 w-full mb-2"/>
+  <button onclick="addEvent()" class="bg-yellow-400 px-4 py-2 text-red-700 font-bold">➕ Add Event</button>
+
+  <p class="text-sm text-gray-500 mt-6">Changes will need to be committed manually on GitHub.</p>
+
+  <script>
+    async function addSermon() {
+      const title = document.getElementById('videoTitle').value;
+      const url = document.getElementById('videoURL').value;
+      const res = await fetch('sermons.json');
+      const data = await res.json();
+      data.unshift({ title, url });
+      download('sermons.json', JSON.stringify(data, null, 2));
+    }
+
+    async function addEvent() {
+      const title = document.getElementById('eventTitle').value;
+      const date = document.getElementById('eventDate').value;
+      const time = document.getElementById('eventTime').value;
+      const res = await fetch('events.json');
+      const data = await res.json();
+      data.unshift({ title, date, time });
+      download('events.json', JSON.stringify(data, null, 2));
+    }
+
+    function download(filename, text) {
+      const el = document.createElement('a');
+      el.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
+      el.setAttribute('download', filename);
+      el.click();
+    }
+  </script>
+</body>
+</html>
