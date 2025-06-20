@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: 🛠 Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install gray-matter
+      - name: 📦 Install gray-matter
         run: npm install gray-matter
 
-      - name: Convert data/events to data/events.json
+      - name: 🔁 Convert Markdown to JSON
         run: |
           node <<EOF
           const fs = require('fs');
@@ -35,33 +35,30 @@ jobs:
           }
 
           const files = fs.readdirSync(eventsDir);
+          console.log("📂 Found files:", files);
+
           const events = files
             .filter(f => f.endsWith('.md'))
             .map(filename => {
               const file = fs.readFileSync(\`\${eventsDir}/\${filename}\`, 'utf8');
               const { data, content } = matter(file);
+              console.log("📝 Parsed frontmatter for:", filename, data);
               return {
                 ...data,
                 content: content.trim()
               };
             });
 
+          console.log("✅ Final JSON:", JSON.stringify(events, null, 2));
           fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
           EOF
 
-      - name: Commit and push events.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/events.json
-          git commit -m "Update events.json from data/events/*.md" || echo "No changes to commit"
-                - name: Commit and push events.json
+      - name: 🚀 Commit and push events.json
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/events.json
-          git commit -m "Update events.json from data/events/*.md" || echo "No changes to commit"
+          git commit -m "🔄 Update events.json from data/events/*.md" || echo "No changes to commit"
           git push https://x-access-token:${GH_TOKEN}@github.com/heaven-prophetic/home.git HEAD:main
-
