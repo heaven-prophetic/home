@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prayer Requests – Heaven Prophetic Deliverance Ministry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #sideMenu {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    #sideMenu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-yellow-400 py-4 shadow flex justify-between items-center px-4">
+    <div>
+  <a href="index.html" class="text-xl font-bold text-red-700 block">Heaven Prophetic Deliverance Ministry</a>
+  <p class="text-sm text-red-800">22 Harris Street, May Pen, Clarendon, Jamaica</p>
+  <p class="text-sm text-red-800">📞 (876) 212-5944</p>
+</div>
+    <button id="menuBtn" class="md:hidden text-red-700 text-2xl">☰</button>
+
+    <!-- Desktop Menu -->
+    <nav class="hidden md:flex gap-4 text-red-800 font-semibold">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="ministries.html" class="hover:underline">Ministries</a>
+      <a href="sermons.html" class="hover:underline">Sermons</a>
+      <a href="events.html" class="hover:underline">Events</a>
+      <a href="prayer.html" class="hover:underline">Prayer</a>
+    </nav>
+  </header>
+
+  <!-- Slide-In Mobile Menu -->
+  <nav id="sideMenu" class="fixed top-0 left-0 w-3/4 h-full bg-yellow-200 shadow-lg p-6 z-50 md:hidden">
+    <button id="closeMenu" class="text-xl mb-4 text-red-700">✖ Close</button>
+    <ul class="space-y-4 text-lg font-semibold text-red-800">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="ministries.html">Ministries</a></li>
+      <li><a href="sermons.html">Sermons</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="prayer.html">Prayer</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <section class="max-w-3xl mx-auto py-16 px-6">
+    <h1 class="text-3xl font-extrabold text-red-700 mb-6">Submit a Prayer Request</h1>
+    <p class="mb-4">We believe in the power of prayer. Please fill out the form below and our prayer team will lift you up before the Lord.</p>
+
+    <form action="https://formsubmit.co/YOUR-EMAIL" method="POST" class="space-y-4">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="name" required placeholder="Your Name" class="w-full px-4 py-2 border rounded-md">
+      <input type="email" name="email" required placeholder="Your Email" class="w-full px-4 py-2 border rounded-md">
+      <textarea name="request" rows="5" required placeholder="Your Prayer Request" class="w-full px-4 py-2 border rounded-md"></textarea>
+      <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">Send Prayer Request</button>
+    </form>
+  </section>
+
+  <!-- Slide-in Menu Script -->
+  <script>
+    const sideMenu = document.getElementById("sideMenu");
+    const menuBtn = document.getElementById("menuBtn");
+    const closeMenu = document.getElementById("closeMenu");
+
+    menuBtn.addEventListener("click", () => {
+      sideMenu.classList.add("open");
+    });
+
+    closeMenu.addEventListener("click", () => {
+      sideMenu.classList.remove("open");
+    });
+  </script>
+
+</body>
+</html>
