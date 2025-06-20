@@ -1,0 +1,52 @@
+name: Convert Events to JSON
+
+on:
+  push:
+    paths:
+      - 'events/**'
+      - '.github/workflows/events-to-json.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install gray-matter
+        run: npm install gray-matter
+
+      - name: Convert /events to /data/events.json
+        run: |
+          node <<EOF
+          const fs = require('fs');
+          const matter = require('gray-matter');
+
+          const eventsDir = './events';
+          const files = fs.readdirSync(eventsDir);
+          const events = files.map(filename => {
+            const file = fs.readFileSync(\`\${eventsDir}/\${filename}\`, 'utf8');
+            const { data, content } = matter(file);
+            return {
+              ...data,
+              content: content.trim()
+            };
+          });
+
+          if (!fs.existsSync('data')) fs.mkdirSync('data');
+          fs.writeFileSync('data/events.json', JSON.stringify(events, null, 2));
+          EOF
+
+      - name: Commit and push events.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/events.json
+          git commit -m "Update events.json from Markdown" || echo "No changes to commit"
+          git push
