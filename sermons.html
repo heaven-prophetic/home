@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sermons – Heaven Prophetic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #sideMenu {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    #sideMenu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+
+   <!-- Header -->
+  <header class="bg-yellow-400 py-4 shadow flex justify-between items-center px-4">
+    <div>
+  <a href="index.html" class="text-xl font-bold text-red-700 block">Heaven Prophetic Deliverance Ministry</a>
+  <p class="text-sm text-red-800">22 Harris Street, May Pen, Clarendon, Jamaica</p>
+  <p class="text-sm text-red-800">📞 (876) 212-5944</p>
+</div>
+    <button id="menuBtn" class="md:hidden text-red-700 text-2xl">☰</button>
+  
+  <!-- Desktop Menu -->    
+    <nav id="menu" class="hidden md:flex gap-4 text-red-800 font-semibold">
+      <a href="index.html" class="text-red-800 hover:underline">Home</a>
+      <a href="about.html" class="text-red-800 hover:underline">About</a>
+      <a href="ministries.html" class="text-red-800 hover:underline">Ministries</a>
+      <a href="sermons.html" class="text-red-800 hover:underline">Sermons</a>
+      <a href="events.html" class="text-red-800 hover:underline">Events</a>
+      <a href="prayer.html" class="text-red-800 hover:underline">Prayer</a>
+    </nav>
+
+    </header>
+
+  <!-- Slide-In Menu -->
+  <nav id="sideMenu" class="fixed top-0 left-0 w-3/4 h-full bg-yellow-200 shadow-lg p-6 z-50 md:hidden">
+    <button id="closeMenu" class="text-xl mb-4 text-red-700">✖ Close</button>
+    <ul class="space-y-4 text-lg font-semibold text-red-800">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="ministries.html">Ministries</a></li>
+      <li><a href="sermons.html">Sermons</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="prayer.html">Prayer</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-3xl mx-auto py-12 px-6">
+    <h1 class="text-3xl font-bold text-red-700 mb-4">Latest Sermon</h1>
+    <div id="videoContainer" class="aspect-video w-full max-w-2xl mx-auto"></div>
+  </main>
+
+   <script>
+    fetch('sermons.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('sermonList');
+        data.forEach(video => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <h2 class="text-xl font-bold text-yellow-600 mb-2">${video.title}</h2>
+            <div class="aspect-w-16 aspect-h-9">
+              <iframe class="w-full" src="${video.url}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
+
+  <script>
+    const menu = document.getElementById("sideMenu");
+    document.getElementById("menuBtn").onclick = () => menu.classList.add("open");
+    document.getElementById("closeMenu").onclick = () => menu.classList.remove("open");
+  </script>
+</body>
+</html>
