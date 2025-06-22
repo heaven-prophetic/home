@@ -1,0 +1,60 @@
+name: Convert Sermons to JSON
+
+on:
+  push:
+    paths:
+      - 'data/sermons/**'
+      - '.github/workflows/sermons-to-json.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.20.2'
+
+      - name: 📦 Install gray-matter
+        run: npm install gray-matter
+
+      - name: 🔁 Convert Markdown to JSON
+        run: |
+          node <<EOF
+          const fs = require('fs');
+          const matter = require('gray-matter');
+
+          const sermonsDir = './data/sermons';
+          if (!fs.existsSync(sermonsDir)) {
+            console.error("❌ Folder './data/sermons' not found.");
+            process.exit(1);
+          }
+
+          const files = fs.readdirSync(sermonsDir);
+          const sermons = files
+            .filter(f => f.endsWith('.md'))
+            .map(filename => {
+              const file = fs.readFileSync(\`\${sermonsDir}/\${filename}\`, 'utf8');
+              const { data, content } = matter(file);
+              return {
+                ...data,
+                content: content.trim()
+              };
+            });
+
+          fs.writeFileSync('./data/sermons.json', JSON.stringify(sermons, null, 2));
+          EOF
+
+      - name: 🚀 Commit and Push sermons.json
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "heaven prophetic"
+          git config user.email "dave.scan2000@gmail.com"
+          git add data/sermons.json
+          git commit -m "🔄 Update sermons.json from data/sermons/*.md" || echo "No changes to commit"
+          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} HEAD:main
