@@ -9,20 +9,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: 🛠 Node.js pre-check
-      run: echo "Node.js setup starting..."
-      
       - name: 🛠 Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-      node-version: '18.20.2'
-      - name: 🛠 Node.js post-check
-      run: node -v
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.20.2'
 
       - name: 📦 Install gray-matter
         run: npm install gray-matter
@@ -40,8 +35,6 @@ jobs:
           }
 
           const files = fs.readdirSync(eventsDir);
-          console.log("📂 Found files:", files);
-
           const events = files
             .filter(f => f.endsWith('.md'))
             .map(filename => {
@@ -54,15 +47,7 @@ jobs:
             });
 
           fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
-          console.log("✅ events.json saved!");
           EOF
-
-      - name: 🧪 Check JSON and Git Status
-        run: |
-          echo "🌐 events.json content:"
-          cat data/events.json
-          echo "📁 Git status:"
-          git status
 
       - name: 🚀 Commit and Push events.json
         env:
