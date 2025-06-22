@@ -53,7 +53,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config user.name "heaven-prophetic"
+          git config user.name "heaven prophetic"
           git config user.email "dave.scan2000@gmail.com"
           git add data/events.json
           git commit -m "🔄 Update events.json from data/events/*.md" || echo "No changes to commit"
