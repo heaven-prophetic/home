@@ -56,23 +56,29 @@
     <div id="videoContainer" class="aspect-video w-full max-w-2xl mx-auto"></div>
   </main>
 
-   <script>
-    fetch('data/sermons.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('sermonList');
-        data.forEach(video => {
-          const div = document.createElement('div');
-          div.innerHTML = `
-            <h2 class="text-xl font-bold text-yellow-600 mb-2">${video.title}</h2>
-            <div class="aspect-w-16 aspect-h-9">
-              <iframe class="w-full" src="${video.url}" frameborder="0" allowfullscreen></iframe>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-      });
-  </script>
+   <ul id="sermonList"></ul>
+<script>
+fetch('data/sermons.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('sermonList');
+    data.forEach(sermon => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <h2 class="text-xl font-bold text-yellow-700">${sermon.title}</h2>
+        <p>Date: ${sermon.date}</p>
+        <p>Time: ${sermon.time}</p>
+        <p>Speaker: ${sermon.speaker}</p>
+        ${sermon.youtube ? `<p><a href="${sermon.youtube}" target="_blank">🎥 Watch on YouTube</a></p>` : ''}
+        ${sermon.facebook ? `<p><a href="${sermon.facebook}" target="_blank">📘 Watch on Facebook</a></p>` : ''}
+        ${sermon.live ? `<span class="text-red-600 font-semibold">🔴 LIVE NOW</span>` : ''}
+        <p>${sermon.content}</p>
+      `;
+      container.appendChild(li);
+    });
+  });
+</script>
+
 
   <script>
     const menu = document.getElementById("sideMenu");
