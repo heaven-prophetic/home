@@ -1,0 +1,33 @@
+name: 🧹 Auto Clean Dates in Markdown
+
+on:
+  push:
+    paths:
+      - "data/events/*.md"
+      - "data/sermons/*.md"
+      - ".github/workflows/clean-dates.yml"
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 🧹 Run clean-dates.js
+        run: |
+          node clean-dates.js
+
+      - name: 🚀 Commit and Push cleaned dates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/events/*.md data/sermons/*.md
+          git commit -m "🧹 Clean datetime to date-only in events and sermons" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }} HEAD:main
