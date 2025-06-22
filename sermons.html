@@ -56,7 +56,14 @@
     <div id="videoContainer" class="aspect-video w-full max-w-2xl mx-auto"></div>
   </main>
 
-   <ul id="sermonList"></ul>
+   <ul id="sermonList" class="space-y-6"></ul>
+
+<!-- Facebook SDK (for live/embed) -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0" nonce="live123">
+</script>
+
 <script>
 fetch('data/sermons.json')
   .then(res => res.json())
@@ -64,15 +71,45 @@ fetch('data/sermons.json')
     const container = document.getElementById('sermonList');
     data.forEach(sermon => {
       const li = document.createElement('li');
+
+      // YouTube embed
+      let youtubeEmbed = '';
+      if (sermon.youtube) {
+        const videoId = sermon.youtube.split('v=')[1]?.split('&')[0];
+        if (videoId) {
+          youtubeEmbed = `
+            <iframe class="my-4 w-full max-w-xl" height="315"
+              src="https://www.youtube.com/embed/${videoId}"
+              title="YouTube video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>`;
+        }
+      }
+
+      // Facebook embed
+      let facebookEmbed = '';
+      if (sermon.live && sermon.facebook) {
+        facebookEmbed = `
+          <div class="fb-video my-4"
+            data-href="${sermon.facebook}"
+            data-width="500"
+            data-show-text="false"
+            data-autoplay="true"></div>`;
+      } else if (sermon.facebook) {
+        facebookEmbed = `<p><a href="${sermon.facebook}" target="_blank" class="text-blue-600 underline">📘 Watch on Facebook</a></p>`;
+      }
+
       li.innerHTML = `
-        <h2 class="text-xl font-bold text-yellow-700">${sermon.title}</h2>
-        <p>Date: ${sermon.date}</p>
-        <p>Time: ${sermon.time}</p>
-        <p>Speaker: ${sermon.speaker}</p>
-        ${sermon.youtube ? `<p><a href="${sermon.youtube}" target="_blank">🎥 Watch on YouTube</a></p>` : ''}
-        ${sermon.facebook ? `<p><a href="${sermon.facebook}" target="_blank">📘 Watch on Facebook</a></p>` : ''}
-        ${sermon.live ? `<span class="text-red-600 font-semibold">🔴 LIVE NOW</span>` : ''}
-        <p>${sermon.content}</p>
+        <div class="border-l-4 border-yellow-600 pl-4 py-3">
+          <h2 class="text-xl font-bold text-red-700">${sermon.title}</h2>
+          <p><strong>Date:</strong> ${sermon.date}</p>
+          <p><strong>Time:</strong> ${sermon.time}</p>
+          <p><strong>Speaker:</strong> ${sermon.speaker}</p>
+          ${youtubeEmbed}
+          ${facebookEmbed}
+          ${sermon.content ? `<p>${sermon.content}</p>` : ''}
+        </div>
       `;
       container.appendChild(li);
     });
