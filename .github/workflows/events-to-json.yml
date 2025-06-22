@@ -29,3 +29,10 @@
     fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
     console.log("✅ Done!");
     EOF
+
+  - name: 🧪 Check git diff
+  run: |
+    git status
+    git diff --name-only
+    cat data/events.json
+
