@@ -15,7 +15,7 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "date" }
-      - { label: "Length", name: "Length", widget: "string" }
+      - { label: "Length", name: "Length", widget: "string", required: false }
       - { label: "Speaker", name: "speaker", widget: "string" }
       - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
       - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
