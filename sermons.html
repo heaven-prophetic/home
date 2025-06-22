@@ -74,18 +74,27 @@ fetch('data/sermons.json')
 
       // YouTube embed
       let youtubeEmbed = '';
-      if (sermon.youtube) {
-        const videoId = sermon.youtube.split('v=')[1]?.split('&')[0];
-        if (videoId) {
-          youtubeEmbed = `
-            <iframe class="my-4 w-full max-w-xl" height="315"
-              src="https://www.youtube.com/embed/${videoId}"
-              title="YouTube video"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>`;
-        }
-      }
+if (sermon.youtube) {
+  let videoId = '';
+
+  if (sermon.youtube.includes('youtu.be/')) {
+    // Handle short YouTube URLs like https://youtu.be/AwJhgLwO1yA
+    videoId = sermon.youtube.split('youtu.be/')[1]?.split('?')[0];
+  } else if (sermon.youtube.includes('watch?v=')) {
+    // Handle full YouTube URLs like https://www.youtube.com/watch?v=AwJhgLwO1yA
+    videoId = sermon.youtube.split('v=')[1]?.split('&')[0];
+  }
+
+  if (videoId) {
+    youtubeEmbed = `
+      <iframe class="my-4 w-full max-w-xl" height="315"
+        src="https://www.youtube.com/embed/${videoId}"
+        title="YouTube video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>`;
+  }
+}
 
       // Facebook embed
       let facebookEmbed = '';
