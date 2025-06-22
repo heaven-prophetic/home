@@ -65,7 +65,7 @@
     const container = document.getElementById('eventList');
     data.forEach(event => {
       let imgSrc = event.image;
-      if (window.location.hostname.includes('github.io') && imgSrc && imgSrc.startsWith('/uploads')) {
+      if (window.location.hostname.includes('github.io') && imgSrc && imgSrc.startsWith('image/uploads')) {
         imgSrc = '/home' + imgSrc;
       }
 
