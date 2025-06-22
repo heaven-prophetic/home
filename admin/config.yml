@@ -14,9 +14,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date"
-      name: "date"
-      widget: "date"}
+      - { label: "Date", name: "date", widget: "date" }
       - { label: "Length", name: "Length", widget: "string", required: false }
       - { label: "Speaker", name: "speaker", widget: "string" }
       - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
@@ -32,9 +30,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date"
-      name: "date"
-      widget: "date"}
+      - { label: "Date", name: "date", widget: "date" }
       - { label: "Time", name: "time", widget: "string" }
       - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
