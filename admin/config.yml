@@ -23,7 +23,6 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
 
 
-  collections:
   - name: "events"
     label: "Events"
     folder: "data/events"
