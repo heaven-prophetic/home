@@ -1,0 +1,37 @@
+- name: 🔁 Convert Markdown to JSON
+  run: |
+    node <<EOF
+    const fs = require('fs');
+    const matter = require('gray-matter');
+
+    const eventsDir = './data/events';
+    if (!fs.existsSync(eventsDir)) {
+      console.error("❌ Folder './data/events' not found.");
+      process.exit(1);
+    }
+
+    const files = fs.readdirSync(eventsDir);
+    console.log("📂 Found files:", files);
+
+    const events = files
+      .filter(f => f.endsWith('.md'))
+      .map(filename => {
+        const file = fs.readFileSync(\`\${eventsDir}/\${filename}\`, 'utf8');
+        const { data, content } = matter(file);
+        console.log("📝 Parsed:", data);
+        return {
+          ...data,
+          content: content.trim()
+        };
+      });
+
+    console.log("✅ Writing events.json...");
+    fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
+    console.log("✅ Done!");
+    EOF
+
+  - name: 🧪 Check git diff
+  run: |
+    git status
+    git diff --name-only
+    cat data/events.json
