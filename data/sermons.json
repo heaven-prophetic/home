@@ -1,9 +1,13 @@
 [
   {
+    "youtube": "https://www.youtube.com/watch?v=ON8bx-coOpQ",
+    "video_url": "https://www.facebook.com/yourvideo",
     "title": "Sunday Worship",
     "date": "2025-06-15T00:00:00.000Z",
-    "video_url": "https://www.facebook.com/yourvideo",
+    "time": "Now",
+    "speaker": "Slow Jam",
+    "live": true,
     "description": "A powerful word on healing and freedom.",
-    "content": ""
+    "content": "L﻿ets start off"
   }
 ]
