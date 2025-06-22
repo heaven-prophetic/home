@@ -23,14 +23,15 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
 
 
+  collections:
   - name: "events"
     label: "Events"
-    label_singular: "Event"
     folder: "data/events"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "event_date", label: "Event Date", widget: "datetime" }
-      - { name: "location", label: "Location", widget: "string" }
-      - { name: "details", label: "Details", widget: "text" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Time", name: "time", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
