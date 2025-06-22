@@ -1,7 +1,7 @@
 ---
 title: Fasting & Prayer Night
 date: 2025-07-12
-time: 7:00 PM
+time: 7:00 AM
 location: Church Hall
 ---
 
