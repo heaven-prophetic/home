@@ -1,13 +1,14 @@
 [
   {
-    "youtube": "https://www.youtube.com/watch?v=ikz6Dv2AtkI",
-    "video_url": "https://www.facebook.com/yourvideo",
     "title": "Before you say I do!",
+    "youtube": "https://www.youtube.com/watch?v=ikz6Dv2AtkI",
+    "facebook": "https://www.facebook.com/reel/1626418958299031",
+    "video_url": "https://www.facebook.com/yourvideo",
     "date": "2025-06-15T00:00:00.000Z",
     "time": "Now",
     "speaker": "Pastor Jermaine Johnson",
     "live": false,
     "description": "A powerful word on healing and freedom.",
-    "content": "\"﻿Before you say I do\""
+    "content": ""
   }
 ]
