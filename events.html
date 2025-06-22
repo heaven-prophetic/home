@@ -70,7 +70,14 @@
               <h2 class="text-xl font-bold text-yellow-600">${event.title}</h2>
               <p>Date: ${event.date}</p>
               <p>Time: ${event.time}</p>
-              ${event.image ? `<img src="${event.image}" alt="${event.title}" class="my-3 rounded shadow w-full max-w-md">` : ''}
+             let imgSrc = event.image;
+if (window.location.hostname.includes('github.io') && imgSrc.startsWith('/uploads')) {
+  imgSrc = '/home' + imgSrc;
+}
+
+html += `
+  <img src="${imgSrc}" alt="${event.title}" class="my-3 rounded shadow w-full max-w-md">
+`;
           <p>${event.content}</p>
             </div>
           `;
