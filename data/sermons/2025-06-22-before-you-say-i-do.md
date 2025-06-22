@@ -1,0 +1,8 @@
+---
+title: Before you say I do
+date: 2025-06-22T21:48:50.606Z
+Length: 1:31:11
+speaker: "Pastor Jermaine Johnson "
+youtube: https://m.youtube.com/watch?v=ikz6Dv2AtkI&t=77s&pp=ygUlSGVhdmVuIHByb3BoZXRpYyBkZWxpdmVyYW5jZSBtaW5pc3RyeQ%3D%3D
+live: false
+---
