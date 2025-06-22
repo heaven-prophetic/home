@@ -60,30 +60,28 @@
 
    <script>
     fetch('data/events.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('eventList');
-        data.forEach(event => {
-          const li = document.createElement('li');
-          li.innerHTML = `
-            <div class="border-l-4 border-red-700 pl-4 py-2">
-              <h2 class="text-xl font-bold text-yellow-600">${event.title}</h2>
-              <p>Date: ${event.date}</p>
-              <p>Time: ${event.time}</p>
-             let imgSrc = event.image;
-if (window.location.hostname.includes('github.io') && imgSrc.startsWith('/uploads')) {
-  imgSrc = '/home' + imgSrc;
-}
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('eventList');
+    data.forEach(event => {
+      let imgSrc = event.image;
+      if (window.location.hostname.includes('github.io') && imgSrc && imgSrc.startsWith('/uploads')) {
+        imgSrc = '/home' + imgSrc;
+      }
 
-html += `
-  <img src="${imgSrc}" alt="${event.title}" class="my-3 rounded shadow w-full max-w-md">
-`;
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="border-l-4 border-red-700 pl-4 py-2">
+          <h2 class="text-xl font-bold text-yellow-600">${event.title}</h2>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Time:</strong> ${event.time}</p>
+          ${imgSrc ? `<img src="${imgSrc}" alt="${event.title}" class="my-3 rounded shadow w-full max-w-md">` : ''}
           <p>${event.content}</p>
-            </div>
-          `;
-          container.appendChild(li);
-        });
-      });
+        </div>
+      `;
+      container.appendChild(li);
+    });
+  });
   </script>
   
   <!-- Slide-in Menu Script -->
