@@ -7,4 +7,6 @@ details: |-
   Women's Convention
   WOUNDED WOMEN STRIVE
   Theme: RUTH 1
+date: 2025-06-22T06:50:51.772Z
+time: 7:00 AM
 ---
